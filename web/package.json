@@ -1,5 +1,5 @@
 {
-  "name": "super-school",
+  "name": "@superschool/web",
   "scripts": {
     "dev": "next dev",
     "build": "next build",

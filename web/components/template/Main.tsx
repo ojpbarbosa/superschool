@@ -12,7 +12,7 @@ export default function Main({ message }) {
           </h1>
           <div className="w-full h-24 flex items-center justify-center">
             <span className="w-full text-xl text-black font-inter">
-              A SuperSchool&apos;s alumni, courses and pricing register.
+              Create, read, update and delete a SuperSchool&apos;s alumni, courses and pricing.
             </span>
           </div>
         </div>

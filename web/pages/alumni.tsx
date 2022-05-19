@@ -15,7 +15,7 @@ export default function Alumni() {
     <div className="w-screen h-screen flex flex-col justify-between">
       <Header />
       <div className="w-full h-full flex items-center justify-center">
-        <table className="w-2/5 font-ibm-plex-mono border-8 border-black rounded-md">
+        <table className="w-2/5 font-ibm-plex-mono table-auto border-8 border-black rounded-md">
           <tr>
             <th>ID</th>
             <th>Enrollment number</th>

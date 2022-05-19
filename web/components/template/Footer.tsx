@@ -8,8 +8,7 @@ export default function Footer() {
       and{' '}
       <a href="https://asp.net/" className="mx-1 font-inter underline">
         ASP.NET Core
-      </a>
-      .
+      </a>.
     </footer>
   )
 }
