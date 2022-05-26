@@ -3,6 +3,19 @@ using SuperSchool.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
+var MyAllowedSpecificOrigins = "_myAllowedSpecificOrigins";
+
+builder.Services.AddCors(options =>
+{
+  options.AddPolicy(MyAllowedSpecificOrigins, builder =>
+  {
+    builder.WithOrigins("http://localhost").AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
+    builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
+    builder.SetIsOriginAllowed(origin => new Uri(origin).Host == "localhost");
+    builder.SetIsOriginAllowed(origin => true);
+  });
+});
+
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -20,7 +33,9 @@ if (app.Environment.IsDevelopment())
   app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+// app.UseHttpsRedirection();
+
+app.UseCors(MyAllowedSpecificOrigins);
 
 app.UseAuthorization();
 
