@@ -1,11 +1,6 @@
-using System.Linq;
 using SuperSchool.Data;
 using SuperSchool.Models;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Http;
-using System.Collections.Generic;
-
 
 namespace SuperSchool.Controllers;
 
@@ -23,7 +18,7 @@ public class StudentsController : ControllerBase
   [HttpGet]
   public ActionResult<List<Student>> GetAll()
   {
-    return _context.Student.ToList();
+    return _context.Students.ToList();
   }
 
   [HttpGet("{id}")]
@@ -31,7 +26,7 @@ public class StudentsController : ControllerBase
   {
     try
     {
-      Student s = _context.Student.Find(id);
+      Student s = _context.Students.Find(id);
 
       if (s == null)
       {
@@ -51,7 +46,7 @@ public class StudentsController : ControllerBase
   {
     try
     {
-      _context.Student.Add(student);
+      _context.Students.Add(student);
 
       if (await _context.SaveChangesAsync() == 1)
       {
@@ -71,7 +66,7 @@ public class StudentsController : ControllerBase
   {
     try
     {
-      Student s = _context.Student.Find(id);
+      Student s = _context.Students.Find(id);
 
       if (s == null)
       {
@@ -100,7 +95,7 @@ public class StudentsController : ControllerBase
   {
     try
     {
-      Student student = _context.Student.Find(id);
+      Student student = _context.Students.Find(id);
 
       if (student == null)
       {
