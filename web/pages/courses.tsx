@@ -12,28 +12,28 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 
 const initialState = {
-  alumni: [],
-  newAlumni: { id: '', enrollmentNumber: '', name: '', course: 0 }
+  courses: [],
+  newCourse: { id: '', name: '', code: 0 }
 }
 
-export default function Alumni() {
-  const [alumni, setAlumni] = useState(initialState.alumni)
-  const [newAlumni, setNewAlumni] = useState(initialState.newAlumni)
+export default function Courses() {
+  const [courses, setCourses] = useState(initialState.courses)
+  const [newCourse, setNewCourse] = useState(initialState.newCourse)
 
   useEffect(() => {
     axios
-      .get('https://localhost:7111/api/students')
+      .get('https://localhost:7111/api/courses')
       .then((response) => response.data)
       .then((data) => {
-        setAlumni(data)
+        setCourses(data)
       })
   }, [])
 
   function handleChange(event: ChangeEvent<HTMLInputElement>) {
     const { name, value } = event.target
 
-    setNewAlumni({
-      ...newAlumni,
+    setNewCourse({
+      ...newCourse,
       [name]: value
     })
   }
@@ -41,58 +41,58 @@ export default function Alumni() {
   function handleSubmit(event: FormEvent) {
     event.preventDefault()
 
-    const { id } = newAlumni
+    const { id } = newCourse
 
     const method = id ? 'put' : 'post'
-    const url = `https://localhost:7111/api/students/${
+    const url = `https://localhost:7111/api/courses/${
       method === 'put' ? id : ''
     }`
 
-    if (!newAlumni.id) {
-      newAlumni.id = uuid()
+    if (!id) {
+      newCourse.id = uuid()
     } else {
-      delete newAlumni.id
+      delete newCourse.id
     }
 
-    axios[method](url, newAlumni)
+    axios[method](url, newCourse)
       .then((response) => response.data)
       .then((data) => {
-        setAlumni(getUpdatedAlumni(data))
+        setCourses(getUpdatedCourses(data))
 
-        setNewAlumni(initialState.newAlumni)
+        setNewCourse(initialState.newCourse)
       })
   }
 
-  function getUpdatedAlumni(
-    newAlumni: typeof initialState.newAlumni,
+  function getUpdatedCourses(
+    newCourse: typeof initialState.newCourse,
     exclude?: boolean
   ) {
-    const updatedAlumni = alumni.filter((a) => a.id !== newAlumni.id)
+    const updatedCourses = courses.filter((c) => c.id !== newCourse.id)
 
     if (!exclude) {
-      updatedAlumni.unshift(newAlumni)
+      updatedCourses.unshift(newCourse)
     }
 
-    return updatedAlumni
+    return updatedCourses
   }
 
   function handleCancel() {
-    setNewAlumni(initialState.newAlumni)
+    setNewCourse(initialState.newCourse)
   }
 
-  function handleUpdate(updatedAlumni: typeof initialState.newAlumni) {
-    setNewAlumni(updatedAlumni)
+  function handleUpdate(updatedCourse: typeof initialState.newCourse) {
+    setNewCourse(updatedCourse)
   }
 
-  function handleDelete(deletedAlumni: typeof initialState.newAlumni) {
+  function handleDelete(deletedCourse: typeof initialState.newCourse) {
     if (
-      window.confirm(`Are you sure you want to delete ${deletedAlumni.name}?`)
+      window.confirm(`Are you sure you want to delete ${deletedCourse.name}?`)
     ) {
-      const { id } = deletedAlumni
+      const { id } = deletedCourse
 
       axios
-        .delete(`https://localhost:7111/api/students/${id}`)
-        .then(() => setAlumni(getUpdatedAlumni(deletedAlumni, true)))
+        .delete(`https://localhost:7111/api/courses/${id}`)
+        .then(() => setCourses(getUpdatedCourses(deletedCourse, true)))
     }
   }
 
@@ -101,17 +101,14 @@ export default function Alumni() {
       <Header />
       <div className="w-full h-full flex flex-col items-center justify-center">
         <div className="w-1/2 h-12 flex items-center justify-between">
-          <div className="w-40 h-12">
-            <h1 className="text-4xl font-bold">EN</h1>
-          </div>
           <div className="w-40 h-12 ">
             <h1 className="text-4xl font-bold">Name</h1>
           </div>
           <div className="w-40 h-12">
-            <h1 className="text-4xl font-bold">Course</h1>
+            <h1 className="text-4xl font-bold">Code</h1>
           </div>
-          <span className="w-24 h-12" />
-          <span className="w-24 h-12" />
+          <span className="w-32 h-12" />
+          <span className="w-32 h-12" />
         </div>
         <form
           className="w-1/2 h-20 flex items-center justify-between"
@@ -119,61 +116,52 @@ export default function Alumni() {
         >
           <input
             type="text"
-            name="enrollmentNumber"
-            value={newAlumni.enrollmentNumber}
-            onChange={handleChange}
-            className="w-40 h-12 border-solid border-4 border-black rounded p-3 font-inter"
-          />
-          <input
-            type="text"
             name="name"
-            value={newAlumni.name}
+            value={newCourse.name}
             onChange={handleChange}
             className="w-40 h-12 border-solid border-4 border-black rounded p-3 font-inter"
           />
           <input
             type="number"
-            name="course"
-            value={newAlumni.course}
+            name="code"
+            value={newCourse.code}
             onChange={handleChange}
             className="w-40 h-12 border-solid border-4 border-black rounded p-3 font-inter"
           />
           <button
             type="submit"
-            className="w-24 h-12 bg-black rounded p-3 text-white text-xl flex items-center justify-center border-solid border-4 border-black hover:bg-white hover:text-black transition-colors"
+            className="w-32 h-12 bg-black rounded p-3 text-white text-xl flex items-center justify-center border-solid border-4 border-black hover:bg-white hover:text-black transition-colors"
           >
             <FontAwesomeIcon icon={faPaperPlane} />
           </button>
           <button
             type="button"
             onClick={handleCancel}
-            className="w-24 h-12 bg-white rounded p-3 text-black text-xl flex items-center justify-center border-solid border-4 border-black hover:bg-black hover:text-white transition-colors"
+            className="w-32 h-12 bg-white rounded p-3 text-black text-xl flex items-center justify-center border-solid border-4 border-black hover:bg-black hover:text-white transition-colors"
           >
             <FontAwesomeIcon icon={faBan} />
           </button>
         </form>
-        {alumni.length > 0 ? (
+        {courses.length > 0 ? (
           <table className="w-1/2 font-ibm-plex-mono table-auto border-solid border-4 border-black rounded-md">
             <tr>
               <th>ID</th>
-              <th>Enrollment number</th>
               <th>Name</th>
-              <th>Course</th>
+              <th>Code</th>
             </tr>
-            {alumni.map((a) => {
+            {courses.map((c) => {
               return (
-                <tr key={a.id}>
-                  <td>{a.id}</td>
-                  <td>{a.enrollmentNumber}</td>
-                  <td>{a.name}</td>
-                  <td>{a.course}</td>
+                <tr key={c.id}>
+                  <td>{c.id}</td>
+                  <td>{c.name}</td>
+                  <td>{c.code}</td>
                   <td>
-                    <button onClick={() => handleUpdate(a)}>
+                    <button onClick={() => handleUpdate(c)}>
                       <FontAwesomeIcon icon={faPenToSquare} />
                     </button>
                   </td>
                   <td>
-                    <button onClick={() => handleDelete(a)}>
+                    <button onClick={() => handleDelete(c)}>
                       <FontAwesomeIcon icon={faTrash} />
                     </button>
                   </td>
