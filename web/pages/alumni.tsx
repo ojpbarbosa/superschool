@@ -156,7 +156,7 @@ export default function Alumni() {
             {alumni.map((a) => {
               return (
                 <tr key={a.id}>
-                  <td>{a.id?.substring(0, 16) + '...'}</td>
+                  <td>{a.id.substring(0, 16) + '...'}</td>
                   <td>{a.enrollmentNumber}</td>
                   <td>{a.name}</td>
                   <td>{a.course}</td>

@@ -50,7 +50,7 @@ public class CoursesController : ControllerBase
 
       if (await _context.SaveChangesAsync() == 1)
       {
-        return Created($"/api/Courses/{course.Id}", course);
+        return Created($"/api/courses/{course.Id}", course);
       }
     }
     catch
