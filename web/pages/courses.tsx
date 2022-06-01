@@ -5,10 +5,10 @@ import { useState, useEffect, ChangeEvent, FormEvent } from 'react'
 import { v4 as uuid } from 'uuid'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
-  faBan,
-  faTrash,
   faPaperPlane,
-  faPenToSquare
+  faBan,
+  faMarker,
+  faTrash
 } from '@fortawesome/free-solid-svg-icons'
 
 const initialState = {
@@ -157,7 +157,7 @@ export default function Courses() {
                   <td>{c.code}</td>
                   <td>
                     <button onClick={() => handleUpdate(c)}>
-                      <FontAwesomeIcon icon={faPenToSquare} />
+                      <FontAwesomeIcon icon={faMarker} />
                     </button>
                   </td>
                   <td>

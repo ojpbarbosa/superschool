@@ -5,10 +5,10 @@ import { useState, useEffect, ChangeEvent, FormEvent } from 'react'
 import { v4 as uuid } from 'uuid'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
-  faBan,
-  faTrash,
   faPaperPlane,
-  faPenToSquare
+  faBan,
+  faMarker,
+  faTrash
 } from '@fortawesome/free-solid-svg-icons'
 
 const initialState = {
@@ -155,21 +155,21 @@ export default function Alumni() {
         {alumni.length > 0 ? (
           <table className="w-1/2 font-ibm-plex-mono table-auto border-solid border-4 border-black rounded-md">
             <tr>
-              <th>ID</th>
-              <th>Enrollment number</th>
-              <th>Name</th>
-              <th>Course</th>
+              <th className="text-left">ID</th>
+              <th className="text-left">Enrollment number</th>
+              <th className="text-left">Name</th>
+              <th className="text-left">Course</th>
             </tr>
             {alumni.map((a) => {
               return (
                 <tr key={a.id}>
-                  <td>{a.id}</td>
-                  <td>{a.enrollmentNumber}</td>
-                  <td>{a.name}</td>
-                  <td>{a.course}</td>
+                  <td className="text-left">{a.id}</td>
+                  <td className="text-left">{a.enrollmentNumber}</td>
+                  <td className="text-left">{a.name}</td>
+                  <td className="text-left">{a.course}</td>
                   <td>
                     <button onClick={() => handleUpdate(a)}>
-                      <FontAwesomeIcon icon={faPenToSquare} />
+                      <FontAwesomeIcon icon={faMarker} />
                     </button>
                   </td>
                   <td>
