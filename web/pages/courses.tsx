@@ -44,9 +44,7 @@ export default function Courses() {
     const { id } = newCourse
 
     const method = id ? 'put' : 'post'
-    const url = `https://localhost:7111/api/courses/${
-      method === 'put' ? id : ''
-    }`
+    const url = `https://localhost:7111/api/courses/${id ?? ''}`
 
     if (!id) {
       newCourse.id = uuid()
@@ -145,9 +143,9 @@ export default function Courses() {
         {courses.length > 0 ? (
           <table className="w-1/2 font-ibm-plex-mono table-auto border-solid border-4 border-black rounded-md">
             <tr>
-              <th>ID</th>
-              <th>Name</th>
-              <th>Code</th>
+              <th className="text-left">ID</th>
+              <th className="text-left w-72">Name</th>
+              <th className="text-left">Code</th>
             </tr>
             {courses.map((c) => {
               return (

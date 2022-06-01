@@ -44,9 +44,7 @@ export default function Alumni() {
     const { id } = newAlumni
 
     const method = id ? 'put' : 'post'
-    const url = `https://localhost:7111/api/students/${
-      method === 'put' ? id : ''
-    }`
+    const url = `https://localhost:7111/api/courses/${id ?? ''}`
 
     if (!newAlumni.id) {
       newAlumni.id = uuid()
@@ -156,8 +154,8 @@ export default function Alumni() {
           <table className="w-1/2 font-ibm-plex-mono table-auto border-solid border-4 border-black rounded-md">
             <tr>
               <th className="text-left">ID</th>
-              <th className="text-left">Enrollment number</th>
-              <th className="text-left">Name</th>
+              <th className="text-left">EN</th>
+              <th className="text-left w-[16rem]">Name</th>
               <th className="text-left">Course</th>
             </tr>
             {alumni.map((a) => {
