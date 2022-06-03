@@ -26,14 +26,14 @@ public class StudentsController : ControllerBase
   {
     try
     {
-      Student s = _context.Students.Find(id);
+      Student student = _context.Students.Find(id);
 
-      if (s == null)
+      if (student == null)
       {
         return NotFound();
       }
 
-      return Ok(s);
+      return Ok(student);
     }
     catch
     {
