@@ -44,7 +44,7 @@ export default function Alumni() {
     const { id } = newAlumni
 
     const method = id ? 'put' : 'post'
-    const url = `https://localhost:7111/api/courses/${id ?? ''}`
+    const url = `https://localhost:7111/api/students/${id ?? ''}`
 
     if (!newAlumni.id) {
       newAlumni.id = uuid()
