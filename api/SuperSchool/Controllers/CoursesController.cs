@@ -48,7 +48,7 @@ public class CoursesController : ControllerBase
     {
       _context.Courses.Add(course);
 
-      if (await _context.SaveChangesAsync() == 1)
+      if (await _context.Courses.SaveChangesAsync() == 1)
       {
         return Created($"/api/courses/{course.Id}", course);
       }
@@ -70,13 +70,13 @@ public class CoursesController : ControllerBase
 
       if (c == null)
       {
-        return BadRequest();
+        return NotFound();
       }
 
       c.Name = course.Name;
       c.Code = course.Code;
 
-      if (await _context.SaveChangesAsync() == 1)
+      if (await _context.Courses.SaveChangesAsync() == 1)
       {
         return Ok(c);
       }
@@ -101,9 +101,9 @@ public class CoursesController : ControllerBase
         return NotFound();
       }
 
-      _context.Remove(course);
+      _context.Courses.Remove(course);
 
-      if (await _context.SaveChangesAsync() == 1)
+      if (await _context.Courses.SaveChangesAsync() == 1)
       {
         return NoContent();
       }
